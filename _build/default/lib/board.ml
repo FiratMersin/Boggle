@@ -37,13 +37,10 @@ let neighbours board (i, j) =
 let make dim make_char = let tab = ref (Array.make_matrix dim dim 'k') in
 	for i = 0 to dim-1 do 
 		for j = 0 to dim-1 do
-		   !tab.(i).(j) := 'i'
+		   !tab.(i).(j) <- make_char()
 		done;
 	done;
 	!tab;;
-
-let from_string s =
-  failwith "Unimplemented"
 
 let print board = 
 	for i = 0 to Array.length board -1 do
@@ -53,4 +50,21 @@ let print board =
 	     done;
 	     print_string "\n";
 	done;;
+
+let from_string s = let taille = String.length s in
+    let sqrtint = int_of_float (sqrt (float_of_int taille)) in
+  	if sqrtint*sqrtint != taille then None else
+	     let tab = ref (Array.make_matrix sqrtint sqrtint 'k') in
+		let ind = ref 0 in
+	         for i = 0 to sqrtint-1 do
+	              for j = 0 to sqrtint-1 do
+		           !tab.(i).(j) <- s.[!ind];
+			   ind := !ind + 1;
+		      done;
+		done;
+		Some !tab;;
+
+ 
+
+
 
