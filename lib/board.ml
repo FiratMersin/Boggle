@@ -1,4 +1,4 @@
-open Boggle__Iter
+
 open Boggle__RandomLetter
 
 type t = char array array
@@ -9,8 +9,13 @@ let get_letter board i j = board.(i).(j);;
 
 let dim board = Array.length board;;
 
-let all_positions board =
-  failwith "Unimplemented"
+let all_positions board = let taille = Array.length board in 
+	let iteri = ref Iter.empty in
+	for i = 0 to taille -1 do
+		iteri := Iter.cons i !iteri
+	done;
+	let iterator = Iter.product !iteri !iteri in 
+	iterator;;
 
 let are_neighbours board (i, j) (i', j') = match (i,j) with
 	| (i,j) when i-1 = i' && j-1 = j' -> true

@@ -15,9 +15,7 @@ let main () = Random.self_init();
     print_endline "Je n'ai reçu aucun paramètre"
   end;
   print_endline "Je ne sais pas quoi faire... Programmez moi !";
-  let smt = from_string "ouiicinon" in
-  match smt with
-    |Some s -> print s
-    |None -> print_string "hello";;
+  let iter = (all_positions testa) in 
+	for (i,j) in iter do print_int i done;;
 
 let () = main ()
