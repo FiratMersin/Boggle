@@ -19,14 +19,37 @@ let empty =
     words = M.empty;
   }
 
-let has_empty_word { eow; words } =
-  failwith "Unimplemented"
+let has_empty_word { eow; words } = let listkv = Iter.to_rev_list (M.to_iter words) in 
+	let rec aux l = match l with
+		| [] -> false
+		| h::q when let (k,v) = h in k = ' ' -> true (* ' ' = vide *)
+		| h::q -> aux q
+	   in aux listkv;;
+	
 
-let rec is_empty { eow; words } =
-  failwith "Unimplemented"
+let rec is_empty { eow; words } = if eow then false (* a tester *)
+	else let listlex = Iter.to_rev_list (M.to_iter words) in
+	let rec aux l = 
+		match l with 
+	     	   | h::q when q = [] -> let (k,v) = h in is_empty v
+		   | h::q -> let (k,v) = h in is_empty v; aux q
+		   | [] -> true (* pb ? parcourt tout l'arbre avant de retourner true ? *)
+	in aux listlex;;
 
-let add word lexicon =
-  failwith "Unimplemented"
+
+let add word lexicon = let newlex = ref empty in 
+	(!newlex).words = lexicon.words;
+	let taille = String.length word in
+	let rec auxadd ind words =
+	let listkv = Iter.to_rev_list (M.to_iter words) in 
+
+		let rec aux l = match l with 
+			| [] -> M.add (String.get word ind) empty ((!newlex).words)	 
+			| h::q -> let (k,v) = h in if k = word.(0) then print_int 1
+			| h::q -> aux q 
+		in aux listkv;
+	in auxadd 0 (!newlex).words;
+	!newlex;;
 
 let rec to_iter { eow; words } =
   failwith "Unimplemented"

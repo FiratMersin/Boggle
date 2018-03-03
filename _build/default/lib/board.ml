@@ -1,9 +1,6 @@
-
-open Boggle__RandomLetter
-
 type t = char array array
 
-let testa = [| [|'a'; 'l'; 's'|]; [|'t'; 'o'; 'i'|]; [|'q'; 't'; 'e'|] |];;
+let testa = [| [|'a'; 'l'; 's'|]; [|'t'; 'o'; 'i'|]; [|'q'; 't'; 'e'|] |];;(* pour test *)
 
 let get_letter board i j = board.(i).(j);;
 
@@ -15,7 +12,7 @@ let all_positions board = let taille = Array.length board in
 		iteri := Iter.cons i !iteri
 	done;
 	let iterator = Iter.product !iteri !iteri in 
-	!iteri;;
+	iterator;;
 
 let are_neighbours board (i, j) (i', j') = match (i,j) with
 	| (i,j) when i-1 = i' && j-1 = j' -> true
@@ -36,13 +33,22 @@ let is_valid_pos board (i, j) = match (i,j) with
 
 
 
-let neighbours board (i, j) =
-  failwith "Unimplemented"
+let neighbours board (i, j) = let iteri = ref Iter.empty in
+	if (is_valid_pos board (i-1, j-1)) then iteri := Iter.cons (i-1, j-1) !iteri;
+	if (is_valid_pos board (i-1, j)) then iteri := Iter.cons (i-1, j) !iteri; 
+	if (is_valid_pos board (i-1, j+1)) then iteri := Iter.cons (i-1, j+1) !iteri; 
+	if (is_valid_pos board (i, j-1)) then iteri := Iter.cons (i, j-1) !iteri; 
+	if (is_valid_pos board (i, j+1)) then iteri := Iter.cons (i, j+1) !iteri; 
+ 	if (is_valid_pos board (i+1, j-1)) then iteri := Iter.cons (i+1, j-1) !iteri; 
+	if (is_valid_pos board (i+1, j)) then iteri := Iter.cons (i+1, j) !iteri; 
+	if (is_valid_pos board (i+1, j+1)) then iteri := Iter.cons (i+1, j+1) !iteri;
+	!iteri;; 
+ 
 
-let make dim make_char = let tab = ref (Array.make_matrix dim dim 'k') in
+let make dim make_char = let tab = ref (Array.make_matrix dim dim 'k') in (* donner par default make_char pour freq lang fr *) 
 	for i = 0 to dim-1 do 
 		for j = 0 to dim-1 do
-		   !tab.(i).(j) <- make_char()
+		   !tab.(i).(j) <- RandomLetter.make_char()
 		done;
 	done;
 	!tab;;

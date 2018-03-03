@@ -61,7 +61,7 @@ let find_index n cumul =
       else aux i_min i
   in aux 0 (Array.length cumul - 1)
 
-let make_char () = Char.chr ((Random.int 26) + Char.code 'a')
+
 
 let letter_of_index index =
   (* Given an index between 0 and 25, returns the corresponding
@@ -75,3 +75,8 @@ let picker occurrences =
   fun () ->
     find_index (Random.int cumul_max) cumul
     |> letter_of_index
+
+
+let make_char = picker Distribution.fr 
+
+
