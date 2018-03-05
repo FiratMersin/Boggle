@@ -1,4 +1,4 @@
-module M = struct
+ 	module M = struct
   include Map.Make (Char)
 
   let to_iter s =
@@ -19,6 +19,12 @@ let empty =
     words = M.empty;
   }
 
+let endWord = 
+  {
+    eow = true;
+    words = M.empty;
+  }
+
 let has_empty_word { eow; words } = let listkv = Iter.to_rev_list (M.to_iter words) in 
 	let rec aux l = match l with
 		| [] -> false
@@ -27,29 +33,45 @@ let has_empty_word { eow; words } = let listkv = Iter.to_rev_list (M.to_iter wor
 	   in aux listkv;;
 	
 
-let rec is_empty { eow; words } = if eow then false (* a tester *)
+let rec is_empty { eow; words } = failwith "Unimplemented"(*if eow then false (* a tester *)
 	else let listlex = Iter.to_rev_list (M.to_iter words) in
 	let rec aux l = 
 		match l with 
 	     	   | h::q when q = [] -> let (k,v) = h in is_empty v
 		   | h::q -> let (k,v) = h in is_empty v; aux q
 		   | [] -> true (* pb ? parcourt tout l'arbre avant de retourner true ? *)
-	in aux listlex;;
+	in aux listlex;;*)
 
 
-let add word lexicon = let newlex = ref empty in 
-	(!newlex).words = lexicon.words;
+let add word lexicon = (*
 	let taille = String.length word in
 	let rec auxadd ind words =
 	let listkv = Iter.to_rev_list (M.to_iter words) in 
 
 		let rec aux l = match l with 
-			| [] -> M.add (String.get word ind) empty ((!newlex).words)	 
-			| h::q -> let (k,v) = h in if k = word.(0) then print_int 1
-			| h::q -> aux q 
+			| [] -> M.add (String.get word ind) empty words;
+			| h::q when let (k,v) = h in k = (String.get word ind) -> let (k,v) = h in auxadd (ind+1) v;
+			| h::q -> aux q; 
 		in aux listkv;
-	in auxadd 0 (!newlex).words;
-	!newlex;;
+	in auxadd 0 lexicon.words;
+	lexicon;;*)
+
+	let taille = String.length word in 
+	let rec auxadd i auxwords = match i with
+		| x when x = taille -> lexicon
+		
+		| _ ->	let listkv = Iter.to_rev_list (M.to_iter auxwords) in 
+				let rec aux l = match l with
+					| [] -> if i = (taille-1) then let tmpval = endWord in M.add (String.get word i) tmpval auxwords; auxadd (i+1) tmpval.words;
+					else let tmpval = empty in M.add (String.get word i) empty auxwords; auxadd (i+1) tmpval.words;
+					| h::q when let (k,v) = h in k = (String.get word i) -> let (k,v) = h in auxadd (i+1) v.words;
+					| h::q -> aux q;
+				in aux listkv;
+	in auxadd 0 lexicon.words;; (* A TESTER *)
+
+
+
+
 
 let rec to_iter { eow; words } =
   failwith "Unimplemented"

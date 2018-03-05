@@ -22,9 +22,9 @@ let main () =
   print_int y;;*)
   (*let tab = make 4 make_char in
   print tab;;*)
-  let lex = Lexicon.add "azr" Lexicon.empty in
+  (*let lex = Lexicon.add "azr" Lexicon.empty in
   	let vf = Lexicon.is_empty lex in
-		if vf then print_string "vrai\n" else print_string "faux\n";;
+		if vf then print_string "vrai\n" else print_string "faux\n"*);;
   
 
 let () = main ()
