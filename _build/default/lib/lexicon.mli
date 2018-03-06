@@ -7,6 +7,10 @@ type t
 val empty : t
 (** Le lexique vide, qui ne contient aucun mot *)
 
+val endWord : t
+
+val changeEnd : t -> t
+
 val is_empty : t -> bool
 (** Est-ce qu'un lexique est vide ? *)
 

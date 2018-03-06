@@ -25,6 +25,11 @@ let endWord =
     words = M.empty;
   }
 
+let changeValueField lex eowV wordsV = let tmp = {eow = eowV ; words = wordsV } in tmp;;
+
+let changeEnd lex = 
+	changeValueField lex false lex.words;;
+
 let has_empty_word { eow; words } = let listkv = Iter.to_rev_list (M.to_iter words) in 
 	let rec aux l = match l with
 		| [] -> false
@@ -33,14 +38,16 @@ let has_empty_word { eow; words } = let listkv = Iter.to_rev_list (M.to_iter wor
 	   in aux listkv;;
 	
 
-let rec is_empty { eow; words } = failwith "Unimplemented"(*if eow then false (* a tester *)
+let rec is_empty { eow; words } = (*M.is_empty words;;*)
+
+		if eow then false 
 	else let listlex = Iter.to_rev_list (M.to_iter words) in
 	let rec aux l = 
 		match l with 
 	     	   | h::q when q = [] -> let (k,v) = h in is_empty v
 		   | h::q -> let (k,v) = h in is_empty v; aux q
 		   | [] -> true (* pb ? parcourt tout l'arbre avant de retourner true ? *)
-	in aux listlex;;*)
+	in aux listlex;;
 
 
 let add word lexicon = (*
@@ -63,7 +70,7 @@ let add word lexicon = (*
 		| _ ->	let listkv = Iter.to_rev_list (M.to_iter auxwords) in 
 				let rec aux l = match l with
 					| [] -> if i = (taille-1) then let tmpval = endWord in M.add (String.get word i) tmpval auxwords; auxadd (i+1) tmpval.words;
-					else let tmpval = empty in M.add (String.get word i) empty auxwords; auxadd (i+1) tmpval.words;
+					else let tmpval = empty in  M.add (String.get word i) empty auxwords; auxadd (i+1) tmpval.words; 
 					| h::q when let (k,v) = h in k = (String.get word i) -> let (k,v) = h in auxadd (i+1) v.words;
 					| h::q -> aux q;
 				in aux listkv;

@@ -22,9 +22,14 @@ let main () =
   print_int y;;*)
   (*let tab = make 4 make_char in
   print tab;;*)
-  (*let lex = Lexicon.add "azr" Lexicon.empty in
+  let lex = Lexicon.changeEnd Lexicon.endWord in
   	let vf = Lexicon.is_empty lex in
-		if vf then print_string "vrai\n" else print_string "faux\n"*);;
+		if vf then print_string "vrai\n" else print_string "faux\n";;
+ (* let optlex = Lexicon.load_file "dict/dico_fr_petit.txt" in 
+  match optlex with 
+	| None -> None
+	| l -> let vf = Lexicon.is_empty l in
+		if vf then print_string "vrai\n" else print_string "faux\n";;*)
   
 
 let () = main ()
