@@ -11,6 +11,9 @@
 type t
 (** Le type des chemins. *)
 
+
+val getnth : int -> t -> (int*int)
+
 val empty : t
 (** Le chemin vide (qui ne contient aucune case). *)
 

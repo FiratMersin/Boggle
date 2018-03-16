@@ -62,6 +62,10 @@ let print board =
 	     print_string "\n";
 	done;;
 
+
+let get_char_pos board i j = board.(i).(j)
+
+
 let from_string s = let taille = String.length s in
     let sqrtint = int_of_float (sqrt (float_of_int taille)) in
   	if sqrtint*sqrtint != taille then None else

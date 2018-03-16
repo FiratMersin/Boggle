@@ -43,7 +43,7 @@ val from_string : string -> t option
     donc la dimension de la grille. Si [s] n'a pas un nombre carré de
     caractères, [from_string s] renvoie [None]. *)
 
-
+val get_char_pos : t -> int -> int -> char
 
 val print : t -> unit
 (** Affiche une grille. Deux caractères consécutifs sur une même ligne

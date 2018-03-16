@@ -1,1 +1,1 @@
-lib/path.ml: List
+lib/path.ml: Board Bytes List String

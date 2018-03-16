@@ -39,9 +39,17 @@ let main () =
 	| None -> None
 	| l -> let vf = Lexicon.is_empty l in
 		if vf then print_string "vrai\n" else print_string "faux\n";;*)
-  let pat = Path.empty in
-  let pati = ((1,2)::Path.empty) in
-  let x = Path.add_tile Board.testa ((1,2)::Path.empty) (2,3) in print_string "\n";;
+  let p = Path.add_tile testa Path.empty (0, 0) in
+ let px = (match p with | None -> Path.empty
+ 	| Some z -> z) in
+   let pp = Path.add_tile testa px (1,1) in
+	let path = (match pp with | None -> Path.empty
+						| Some z -> z) in
+   let ppp = Path.add_tile testa path (2,2) in
+	let pathh = (match ppp with | None -> Path.empty
+						| Some z -> z) in
+	let mot = Path.to_string testa pathh in 
+	print_string mot; print_string "\n";;
 
 
 
