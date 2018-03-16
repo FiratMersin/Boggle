@@ -22,14 +22,31 @@ let main () =
   print_int y;;*)
   (*let tab = make 4 make_char in
   print tab;;*)
-  let lex = Lexicon.changeEnd Lexicon.endWord in
-  	let vf = Lexicon.is_empty lex in
-		if vf then print_string "vrai\n" else print_string "faux\n";;
+  (*let lex = Lexicon.add "a" Lexicon.empty in
+	let lexb = Lexicon.add "ar" lex in
+	let lexc = Lexicon.add "ara" lexb in
+	let lexd = Lexicon.add "arab" lexc in
+	let lexe = Lexicon.add "araba" lexd in
+	let lexmin = Lexicon.filter_min_length 3 lexe in
+  	let vf = Lexicon.is_empty lexmin in
+		if vf then print_string "vrai\n" else print_string "faux\n";
+	let iterateword = Lexicon.to_iter  lexmin in
+	Iter.iter print_string iterateword;
+	let emptyw = Lexicon.has_empty_word (Lexicon.letter_suffixes lexe 'a') in
+		if emptyw then print_string "mot vide found\n" else print_string "pas de mot vide\n";;*)
  (* let optlex = Lexicon.load_file "dict/dico_fr_petit.txt" in 
   match optlex with 
 	| None -> None
 	| l -> let vf = Lexicon.is_empty l in
 		if vf then print_string "vrai\n" else print_string "faux\n";;*)
+  let pat = Path.empty in
+  let pati = ((1,2)::Path.empty) in
+  let x = Path.add_tile Board.testa ((1,2)::Path.empty) (2,3) in print_string "\n";;
+
+
+
+
+
   
 
 let () = main ()

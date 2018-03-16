@@ -7,10 +7,6 @@ type t
 val empty : t
 (** Le lexique vide, qui ne contient aucun mot *)
 
-val endWord : t
-
-val changeEnd : t -> t
-
 val is_empty : t -> bool
 (** Est-ce qu'un lexique est vide ? *)
 
@@ -29,6 +25,10 @@ val letter_suffixes : t -> char -> t
     ["a",] et ["chameau"], [letter_suffixes lexicon 'a'] contiendra les
     mots ["bstraction"] et [""] (le mot vide).
 *)
+
+val appendstr : string -> char -> string
+(** retourne une nouvelle chaine à laquelle est ajoutée la lettre donnée *)
+
 
 val has_empty_word : t -> bool
 (** Renvoie [true] si le lexique contient le mot vide, [false]

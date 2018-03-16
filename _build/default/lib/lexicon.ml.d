@@ -1,1 +1,1 @@
-lib/lexicon.ml: Char Iter Map String
+lib/lexicon.ml: Bytes Char Iter Map String
