@@ -11,8 +11,9 @@
 type t
 (** Le type des chemins. *)
 
+val contain_word : string list -> string -> bool 
 
-val getnth : int -> t -> (int*int)
+val add_word : string list -> string -> string list 
 
 val empty : t
 (** Le chemin vide (qui ne contient aucune case). *)

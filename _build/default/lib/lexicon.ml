@@ -21,13 +21,13 @@ let empty =
 
 let has_empty_word { eow; words } = eow (* ok *)
 
-let rec is_empty { eow; words } = (* ok 95% *)
+let rec is_empty { eow; words } = (* ok *)
 	if eow then false 
 	else let listlex = Iter.to_rev_list (M.to_iter words) in
 	let rec aux l = 
 		match l with 
 	     	   | h::q when q = [] -> let (k,v) = h in is_empty v 
-		   | h::q -> let (k,v) = h in is_empty v || aux q (* || ou && ??? *)
+		   | h::q -> let (k,v) = h in is_empty v && aux q 
 		   | [] -> true
 	in aux listlex
 

@@ -14,9 +14,7 @@ type t = (int * int) list
 
 let empty = []
 
-let getnth i path = List.nth path i (* fun for test *)
-
-let add_tile board path (i, j) = (* on suppose ici que (i,j) est une case de board *)
+let add_tile board path (i, j) = (* on suppose ici que (i,j) est une case de board *) 
   try
      let rec aux chemin = 
 	match chemin with 
@@ -35,12 +33,50 @@ let appendstr str c =
 	Bytes.set newstr (String.length str) c;
 	Bytes.to_string newstr
 
-let rec to_string board path =
+let rec to_string board path = 
   let rec aux p word =
 	match p with
 	| [] -> word
 	| h::q -> let (i,j) = h in aux q (appendstr word (Board.get_char_pos board i j))
   in aux path ""
 
-let iter_to_words board all_paths =
-  failwith "Unimplemented"
+let rec contain_word wordList word =
+	match wordList with
+	| [] -> false
+	| h::q when h = word -> true
+	| h::q -> contain_word q word
+
+
+let rec add_word wordList word =
+	match wordList with
+	| [] -> word::[]
+	| h::q -> h::(add_word q word)
+
+
+let iter_to_words board all_paths = 
+	let motFound = ref [] in
+	let iterWord = ref Iter.empty in
+	let list_all_paths = Iter.to_rev_list (all_paths) in
+	let rec aux allpth =
+		match allpth with
+		| [] -> ()
+		| h::q -> let newWord = (to_string board h) in
+			if (contain_word !motFound newWord)
+			then begin aux q end
+ 			else begin motFound := (add_word !motFound newWord); iterWord := (Iter.cons newWord !iterWord); aux q end
+	in aux list_all_paths;
+	!iterWord  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
